@@ -26,7 +26,7 @@ function testSolution(input) {
 
 describe('Solution', function () {
 
-    describe('program', function () {
+    describe.skip('program', function () {
 
         [
             {

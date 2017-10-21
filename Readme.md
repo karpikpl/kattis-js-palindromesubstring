@@ -1,4 +1,4 @@
-# About ![build](https://travis-ci.org/karpikpl/kattis-js-ecma2016.svg?branch=master)
+# About [![Build Status](https://travis-ci.org/karpikpl/kattis-js-palindromesubstring.svg?branch=master)](https://travis-ci.org/karpikpl/kattis-js-palindromesubstring)
 ES2016 wrapper for https://open.kattis.com/ platform.
 
 ## Usage

@@ -5,33 +5,49 @@
 function solution(toPrint, toRead) {
 
     const startAll = new Date();
-    const input = readline().split(' ');
-    const dice1 = parseInt(input[0]);
-    const dice2 = parseInt(input[1]);
 
-    log(`Parsed input dice 1: ${dice1} dice 2: ${dice2}`);
+    while (true) {
+        const input = readline();
+        const answers = [];
+        const answersDic = {};
 
-    const results = {};
-    let maxProb = 0;
-
-    for (let i = 1; i <= dice1; i++)
-        for (let j = 1; j <= dice2; j++) {
-            const prob = (1 / dice1) + (1 / dice2);
-            const sum = i + j;
-
-            results[sum] = (results[sum] || 0) + prob;
+        if (typeof input === 'undefined' || input === null || !input) {
+            break;
         }
 
-    let sums = [];
+        for (let i = 1; i < input.length - 1; i++) {
+            // palindrome check
 
-    Object.keys(results).forEach((o) => sums.push({prob: results[o], sum: o}));
+            let j = 1;
+            while (i - j >= 0 && i + j < input.length && input[i - j] === input[i + j]) {
 
-    sums = sums.sort((a, b) => b.prob - a.prob);
-    const max = sums[0].prob;
+                const ans = input.substr(i - j, 2 * j + 1);
 
-    //log(sums);
+                if (!answersDic[ans]) {
+                    answers.push(ans);
+                    answersDic[ans] = true;
+                }
+                j++;
+            }
 
-    sums.filter(s => s.prob == max).sort((a, b) => a.sum - b.sum).forEach(s => print(s.sum));
+            let k = 0;
+            while (i - k - 1 >= 0 && i + k < input.length && input[i - k - 1] === input[i + k]) {
+
+                const ans = input.substr(i - k - 1, 2 * (k + 1));
+
+                if (!answersDic[ans]) {
+                    answers.push(ans);
+                    answersDic[ans] = true;
+                }
+                k++;
+            }
+        }
+
+        if (answers.length > 0) {
+            answers.sort().forEach(a => print(a));
+            print('');
+        }
+    }
 
     log(`Solved ALL in ${new Date() - startAll}`);
 }
@@ -60,7 +76,10 @@ if (typeof process !== 'undefined' && process.argv[2] === 'i') {
     const Readline = require('readline');
     const input = [];
 
-    const inputProcessor = Readline.createInterface({input: process.stdin, output: process.stdout});
+    const inputProcessor = Readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
 
     inputProcessor.on('line', (line) => {
 
